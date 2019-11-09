@@ -53,15 +53,15 @@ print(emails(html_response.text))
 text = html_response.text
 m = set()
 index = 0
-while text.find(r'<form(.+)>', index) >= 0:
-    start_tag_form = text.find(r'<form(.+)>')
-    print(start_tag_form)
+while text.find(r'<form', index) >= 0:
+    start_tag_form = text.find(r'<form', index)
     end_tag_form = text.find('>',start_tag_form)
     form = text[start_tag_form:end_tag_form]
     form_len = len(form)
     start = start_tag_form + form_len
-    end = text.find(r'</form>',start)
-    print(text[start:end])
+    end = text.find('</form>',start)
+    print(text[start_tag_form:end+7])
     index = end
-else:
-    print('loh')
+
+
+
