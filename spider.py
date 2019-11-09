@@ -32,36 +32,27 @@ def links(text):
     return urls - bad_result
 
 
-'''def forms(text):
+def forms(text):
     m = set()
     index = 0
-    while text.find(r'<form(.+)>', index) >=0:
-        start_tag_form = text.find(r'<form(.+)>')
-        form_len = len(text.find(r'<form(.+)>'))
+    while text.find(r'<form', index) >= 0:
+        start_tag_form = text.find(r'<form', index)
+        end_tag_form = text.find('>',start_tag_form)
+        form = text[start_tag_form:end_tag_form]
+        form_len = len(form)
         start = start_tag_form + form_len
-        end = text.find(r'</form>',start)
-        m += text[start:end]
+        end = text.find('</form>',start)
+        m.add(text[start_tag_form:end+7])
         index = end
-    return m'''
+    return m
 
 
 html_response = requests.request('GET', url1)
 print(links(html_response.text))
 print(emails(html_response.text))
-#print(forms(html_response.text))
+print(forms(html_response.text))
 
-text = html_response.text
-m = set()
-index = 0
-while text.find(r'<form', index) >= 0:
-    start_tag_form = text.find(r'<form', index)
-    end_tag_form = text.find('>',start_tag_form)
-    form = text[start_tag_form:end_tag_form]
-    form_len = len(form)
-    start = start_tag_form + form_len
-    end = text.find('</form>',start)
-    print(text[start_tag_form:end+7])
-    index = end
+
 
 
 
